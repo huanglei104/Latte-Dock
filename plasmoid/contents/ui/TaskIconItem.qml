@@ -477,6 +477,10 @@ Item{
             //end of ghost animation
 
             ParallelAnimation{
+                ScriptAction {
+                    script: mainItemContainer.launcherAction();// latteBackend.newInstance(mainItemContainer.launcherUrl);
+                }
+
                 PropertyAnimation {
                     target: wrapper
                     property: (icList.orientation == Qt.Vertical) ? "tempScaleWidth" : "tempScaleHeight"
@@ -492,10 +496,6 @@ Item{
                     duration: launcherAnimation.speed
                     easing.type: Easing.OutQuad
                 }
-            }
-
-            ScriptAction {
-                script: mainItemContainer.launcherAction();// latteBackend.newInstance(mainItemContainer.launcherUrl);
             }
 
             PropertyAnimation {
