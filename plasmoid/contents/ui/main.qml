@@ -527,6 +527,10 @@ Item {
         location: plasmoid.location
     }
 
+    Latte.PlasmoidBackend{
+        id: latteBackend
+    }
+
 
     TaskManagerApplet.Backend {
         id: backend

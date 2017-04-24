@@ -945,7 +945,8 @@ MouseArea{
         // if ((lastButtonClicked == Qt.LeftButton)||(lastButtonClicked == Qt.MidButton)){
         inBouncingAnimation = true;
         root.addWaitingLauncher(mainItemContainer.launcherUrl);
-        tasksModel.requestActivate(modelIndex());
+        latteBackend.newInstance(mainItemContainer.launcherUrl);
+        //tasksModel.requestActivate(modelIndex());
         // }
     }
 

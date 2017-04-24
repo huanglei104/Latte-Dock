@@ -2,7 +2,7 @@
 *  Copyright 2016  Smith AR <audoban@openmailbox.org>
 *                  Michail Vourlakos <mvourlakos@gmail.com>
 *
-*  This file is part of Latte-Dock
+*  This file is part of Latte-Dock and is a Fork of PlasmaCore::IconItem
 *
 *  Latte-Dock is free software; you can redistribute it and/or
 *  modify it under the terms of the GNU General Public License as
@@ -18,20 +18,28 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "lattedockplugin.h"
-#include "quickwindowsystem.h"
-#include "dock.h"
-#include "iconitem.h"
-#include "plasmoidbackend.h"
+#ifndef PLASMOIDBACKEND_H
+#define PLASMOIDBACKEND_H
 
-#include <QtQml>
+#include <QObject>
+#include <QThread>
 
-void LatteDockPlugin::registerTypes(const char *uri)
-{
-    Q_ASSERT(uri == QLatin1String("org.kde.latte"));
-    qmlRegisterUncreatableType<Latte::Dock>(uri, 0, 1, "Dock", "Latte Dock Types uncreatable");
-    qmlRegisterType<Latte::IconItem>(uri, 0, 1, "IconItem");
-    qmlRegisterType<Latte::PlasmoidBackend>(uri, 0, 1, "PlasmoidBackend");
-    qmlRegisterSingletonType<Latte::QuickWindowSystem>(uri, 0, 1, "WindowSystem", &Latte::windowsystem_qobject_singletontype_provider);
+namespace Latte {
+class PlasmoidBackend : public QObject {
+    Q_OBJECT
+
+    QThread workerThread;
+public:
+    PlasmoidBackend(QObject *parent = 0);
+    ~PlasmoidBackend();
+
+public slots:
+    Q_INVOKABLE void newInstance(QString filepath);
+
+signals:
+    void operate(const QString &);
+};
 
 }
+
+#endif

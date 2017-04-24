@@ -403,7 +403,7 @@ Item{
             PropertyAnimation {
                 target: wrapper
                 property: "mScale"
-                to: root.taskInAnimation ? 0.9 : wrapper.mScale - (root.zoomFactor - 1) / 2
+                to: root.taskInAnimation ? 0.9 : Math.max(0.7,wrapper.mScale - (root.zoomFactor - 1) / 2)
                 duration: clickedAnimation.speed
                 easing.type: Easing.OutQuad
             }
@@ -466,10 +466,6 @@ Item{
         property int speed: root.durationTime * 0.8 * units.longDuration
 
         SequentialAnimation{
-            ScriptAction {
-                script: mainItemContainer.launcherAction();
-            }
-
             //Ghost animation that acts as a delayer
             PropertyAnimation {
                 target: wrapper
@@ -496,6 +492,10 @@ Item{
                     duration: launcherAnimation.speed
                     easing.type: Easing.OutQuad
                 }
+            }
+
+            ScriptAction {
+                script: mainItemContainer.launcherAction();// latteBackend.newInstance(mainItemContainer.launcherUrl);
             }
 
             PropertyAnimation {
